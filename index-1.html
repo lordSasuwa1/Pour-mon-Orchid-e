@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Une Surprise Pour Toi ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Container pour les pétales de fleurs animés en arrière-plan -->
+    <div class="petals-container" id="petalsContainer"></div>
+
+    <!-- Écran 1 : Animation de galaxie d'introduction -->
+    <section id="introScreen" class="screen active">
+        <canvas id="galaxyCanvas"></canvas>
+        <div class="intro-text">
+            <h1>Quelque chose de spécial t'attend...</h1>
+        </div>
+    </section>
+
+    <!-- Écran 2 : Login avec effet glassmorphism -->
+    <section id="loginScreen" class="screen">
+        <div class="login-container">
+            <div class="glass-card">
+                <h2>Entre le mot de passe secret 💕</h2>
+                <p class="subtitle">Tu le connais déjà...</p>
+                
+                <div class="input-group">
+                    <input 
+                        type="password" 
+                        id="passwordInput" 
+                        placeholder="Mot de passe"
+                        autocomplete="off"
+                    >
+                    <button id="loginBtn" class="btn-primary">Entrer</button>
+                </div>
+                
+                <!-- Message d'erreur qui change selon le nombre de tentatives -->
+                <p id="errorMessage" class="error-message"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Écran 3 : Menu principal avec carrousel 3D -->
+    <section id="menuScreen" class="screen">
+        <h1 class="menu-title">Choisis une carte 💖</h1>
+        
+        <!-- Container du carrousel circulaire avec 5 cartes -->
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <!-- Carte 1 : Notre Histoire -->
+                <div class="card" data-index="0" data-modal="histoire">
+                    <div class="card-content">
+                        <div class="card-icon">📖</div>
+                        <h3>Notre Histoire</h3>
+                        <p>Les moments magiques</p>
+                    </div>
+                </div>
+
+                <!-- Carte 2 : Cadeaux -->
+                <div class="card" data-index="1" data-modal="cadeaux">
+                    <div class="card-content">
+                        <div class="card-icon">🎁</div>
+                        <h3>Tes Cadeaux</h3>
+                        <p>Des surprises pour toi</p>
+                    </div>
+                </div>
+
+                <!-- Carte 3 : Mots Doux -->
+                <div class="card" data-index="2" data-modal="mots">
+                    <div class="card-content">
+                        <div class="card-icon">💌</div>
+                        <h3>Mots Doux</h3>
+                        <p>Ce que tu représentes</p>
+                    </div>
+                </div>
+
+                <!-- Carte 4 : Juke-box -->
+                <div class="card" data-index="3" data-modal="jukebox">
+                    <div class="card-content">
+                        <div class="card-icon">🎵</div>
+                        <h3>Juke-box</h3>
+                        <p>Nos chansons</p>
+                    </div>
+                </div>
+
+                <!-- Carte 5 : Ta Réponse -->
+                <div class="card" data-index="4" data-modal="reponse">
+                    <div class="card-content">
+                        <div class="card-icon">💝</div>
+                        <h3>Ta Réponse</h3>
+                        <p>Dis-moi tout</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boutons de navigation pour le carrousel -->
+        <div class="carousel-controls">
+            <button class="carousel-btn" id="prevBtn">◀</button>
+            <button class="carousel-btn" id="nextBtn">▶</button>
+        </div>
+    </section>
+
+    <!-- Modal générique pour les cartes 1, 2, 3 -->
+    <div id="contentModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">×</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Modal spéciale pour le Juke-box (Carte 4) -->
+    <div id="jukeboxModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeJukebox">×</button>
+            <h2 class="modal-title">🎵 Notre Playlist 🎵</h2>
+            
+            <div class="jukebox-player">
+                <!-- Liste des musiques générée dynamiquement par JavaScript -->
+                <div class="playlist">
+                    <!-- Les pistes seront ajoutées ici automatiquement -->
+                </div>
+                
+                <!-- Élément audio invisible géré par JavaScript -->
+                <audio id="audioPlayer"></audio>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour la réponse avec formulaire WhatsApp (Carte 5) -->
+    <div id="reponseModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeReponse">×</button>
+            <h2 class="modal-title">💝 Envoie-moi ta réponse 💝</h2>
+            
+            <div class="response-form">
+                <p class="form-intro">Que penses-tu de tout ça ? 😊</p>
+                <textarea 
+                    id="responseText" 
+                    placeholder="Écris-moi ce que tu ressens..."
+                    rows="6"
+                ></textarea>
+                <button id="sendWhatsapp" class="btn-primary">
+                    Envoyer sur WhatsApp 💬
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chargement du script JavaScript en fin de document -->
+    <script src="script.js"></script>
+</body>
+</html>

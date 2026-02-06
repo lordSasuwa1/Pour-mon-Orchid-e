@@ -1,0 +1,582 @@
+/* ===========================
+   STYLES GLOBAUX ET RESET
+   =========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 50%, #ffd4e8 100%);
+    position: relative;
+    height: 100vh;
+}
+
+/* ===========================
+   SYSTÈME D'ÉCRANS
+   Gère l'affichage des différentes sections
+   =========================== */
+
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.screen.active {
+    display: flex;
+    opacity: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===========================
+   ANIMATION DE PÉTALES DE FLEURS
+   Arrière-plan animé présent sur tous les écrans
+   =========================== */
+
+.petals-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.petal {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(ellipse at center, #ffb3d9 0%, #ff8ec7 100%);
+    border-radius: 50% 0 50% 0;
+    opacity: 0.7;
+    animation: fall linear infinite;
+}
+
+/* Animation de chute avec rotation et mouvement latéral */
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg) translateX(0);
+    }
+    100% {
+        transform: translateY(110vh) rotate(720deg) translateX(100px);
+    }
+}
+
+/* ===========================
+   ÉCRAN D'INTRODUCTION
+   Canvas avec galaxie de particules
+   =========================== */
+
+#introScreen {
+    background: radial-gradient(ellipse at center, #1a0033 0%, #000000 100%);
+}
+
+#galaxyCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.intro-text {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: white;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.intro-text h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(255, 182, 217, 0.8);
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 20px rgba(255, 182, 217, 0.5);
+    }
+    to {
+        text-shadow: 0 0 40px rgba(255, 182, 217, 1);
+    }
+}
+
+/* ===========================
+   ÉCRAN DE LOGIN (GLASSMORPHISM)
+   Effet de verre translucide avec flou
+   =========================== */
+
+#loginScreen {
+    background: linear-gradient(135deg, #ff9ed2 0%, #ffb3e6 100%);
+}
+
+.login-container {
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.glass-card {
+    /* Effet glassmorphism : fond semi-transparent avec flou */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 50px 40px;
+    box-shadow: 0 8px 32px rgba(255, 105, 180, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.glass-card h2 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+#passwordInput {
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#passwordInput:focus {
+    background: white;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+}
+
+.btn-primary {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #ff6fa3 0%, #ff8fb9 100%);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    /* Ombre épaisse style cartoon/chunky */
+    box-shadow: 0 6px 0 #d9578a, 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 #d9578a, 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #d9578a, 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.error-message {
+    color: #ff4444;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    min-height: 20px;
+    margin-top: 10px;
+}
+
+/* ===========================
+   MENU PRINCIPAL AVEC CARROUSEL 3D
+   5 cartes disposées en cercle
+   =========================== */
+
+#menuScreen {
+    z-index: 10;
+}
+
+.menu-title {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ff1493;
+    font-size: 2.5rem;
+    text-shadow: 3px 3px 0 white, 6px 6px 0 #ffb3d9;
+    z-index: 15;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1200px;
+}
+
+.carousel {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+/* ===========================
+   STYLE DES CARTES (CHUNKY/CARTOON)
+   Design épais avec ombres prononcées
+   =========================== */
+
+.card {
+    position: absolute;
+    width: 220px;
+    height: 280px;
+    background: linear-gradient(135deg, #fff5fb 0%, #ffe6f7 100%);
+    border-radius: 20px;
+    /* Ombre épaisse pour effet 3D chunky */
+    box-shadow: 
+        0 10px 0 #ffb3d9,
+        0 12px 20px rgba(0, 0, 0, 0.3);
+    border: 4px solid white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backface-visibility: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 
+        0 15px 0 #ffb3d9,
+        0 18px 30px rgba(0, 0, 0, 0.4);
+}
+
+.card:active {
+    transform: translateY(5px);
+    box-shadow: 
+        0 5px 0 #ffb3d9,
+        0 7px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+    text-align: center;
+}
+
+.card-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    color: #ff1493;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 0 white;
+}
+
+.card p {
+    color: #ff69b4;
+    font-size: 0.9rem;
+}
+
+/* Boutons de navigation du carrousel */
+.carousel-controls {
+    position: absolute;
+    bottom: 120px; /* Remonté de 50px à 120px pour meilleure visibilité */
+    display: flex;
+    gap: 30px;
+    z-index: 20;
+}
+
+.carousel-btn {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6fa3 0%, #ff8fb9 100%);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #d9578a, 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.carousel-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 0 #d9578a, 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 #d9578a, 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ===========================
+   MODALS (FENÊTRES POPUP)
+   Animation depuis le bas vers le haut
+   =========================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #fff5fb 0%, #ffe6f7 100%);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    border-radius: 30px 30px 0 0;
+    padding: 40px 30px;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow-y: auto;
+    /* Animation de montée depuis le bas */
+    animation: slideUp 0.5s ease forwards;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #ff6fa3;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #d9578a;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #d9578a;
+}
+
+.modal-close:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #d9578a;
+}
+
+.modal-title {
+    color: #ff1493;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 0 white, 4px 4px 0 #ffb3d9;
+}
+
+/* Contenu des modals (texte formaté) */
+#modalBody {
+    color: #666;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+#modalBody h3 {
+    color: #ff1493;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#modalBody p {
+    margin-bottom: 15px;
+}
+
+/* ===========================
+   JUKE-BOX (LECTEUR AUDIO)
+   Style pour la liste de lecture
+   =========================== */
+
+.jukebox-player {
+    width: 100%;
+}
+
+.playlist {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.track {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 0 #ffb3d9, 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.track:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 #ffb3d9, 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Mise en avant de la piste en cours de lecture */
+.track.playing {
+    background: linear-gradient(135deg, #ffe6f7 0%, #ffd4e8 100%);
+    border: 3px solid #ff69b4;
+}
+
+.track-name {
+    color: #ff1493;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.play-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6fa3 0%, #ff8fb9 100%);
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #d9578a;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.play-btn:hover {
+    transform: scale(1.1);
+}
+
+.play-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #d9578a;
+}
+
+/* ===========================
+   FORMULAIRE DE RÉPONSE
+   Zone de texte et bouton WhatsApp
+   =========================== */
+
+.response-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-intro {
+    color: #ff1493;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+#responseText {
+    width: 100%;
+    padding: 15px;
+    border: 3px solid #ffb3d9;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#responseText:focus {
+    border-color: #ff69b4;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   Adaptations pour mobiles
+   =========================== */
+
+@media (max-width: 768px) {
+    .menu-title {
+        font-size: 1.8rem;
+        top: 30px;
+    }
+
+    .card {
+        width: 180px;
+        height: 240px;
+    }
+
+    .card-icon {
+        font-size: 3rem;
+    }
+
+    .card h3 {
+        font-size: 1.2rem;
+    }
+
+    .intro-text h1 {
+        font-size: 1.8rem;
+        padding: 0 20px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 30px 20px;
+    }
+}
