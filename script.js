@@ -352,7 +352,7 @@ function rotateCarousel(direction) {
 function updateCarousel() {
     const carousel = document.getElementById('carousel');
     const cards = document.querySelectorAll('.card');
-    const radius = 350; // Rayon du cercle sur lequel sont disposées les cartes
+    const radius = 250; // Rayon du cercle sur lequel sont disposées les cartes
     const angleStep = 360 / cards.length; // 72° entre chaque carte
     
     cards.forEach((card, index) => {
